@@ -1,8 +1,9 @@
 # AutoSetupOracle
+## Modified Version by mihaidev-cloud
 First install curl:
 
 ```bash
-apt install curl
+sudo apt install curl
 ```
 After that, auto setup your oracle vps with this command:
 
