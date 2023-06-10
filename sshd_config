@@ -31,7 +31,7 @@ Port 22
 # Authentication:
 
 #LoginGraceTime 2m
-PermitRootLogin yes
+PermitRootLogin no #root can be dangerous using it since has full privileges and is unprofessional.
 #StrictModes yes
 #MaxAuthTries 6
 #MaxSessions 10
