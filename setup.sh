@@ -4,8 +4,8 @@ if [[ $EUID -ne 0 ]]; then
   echo "* This script must be executed with root privileges (sudo)." 1>&2
   exit 1
 fi
-echo "      Welcome to SuperHori Script"
-echo "With this script you can setup your server, modified by mihaidev-cloud"
+echo "      Welcome to AutoSetupOracle"
+echo "With this script you can setup your server, created by SuperHori modified by mihaidev-cloud"
 read -p "Press any key to start installing ..."
 cd /etc/ssh
 rm sshd_config
@@ -144,7 +144,17 @@ read userchosen
 sudo adduser $userchosen
 echo "creating sudo privilege for user"
 sudo add user $userchosen sudo
-apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
+sudo su $userchosen
+echo "You are logged as $userchosen please be aware in case if the execution needs human action!"
+echo "want to install basic apps and configure firewall and disable iptables? Nginx Webserver, Certbot SSL, mysql(mariadb) type yes or press enter for exit"
+echo "are you agree to install? type yes or press enter to cancel"
+
+read answer
+if [ "$answer" ]; then 
+
+echo $answer, "lets get started!"
+
+sudo apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 add-apt-repository ppa:redislabs/redis -y
 apt-add-repository universe
@@ -154,8 +164,12 @@ sudo apt update
 sudo apt -y upgrade
 echo "adding ssh port"
 sudo ufw allow 22 
-sudo ufw enable -y
-echo "disable iptables"
+sudo ufw allow 'Nginx Full'
+sudo ufw allow 3306 
+echo "y" | sudo ufw enable
+echo "you can open port too! just type sudo ufw allow portnumber"
+echo "we activated the firewall and managed it I also recommend human supervision here!"
+echo "disabling iptables"
 sudo iptables -P INPUT ACCEPT
 sudo iptables -P FORWARD ACCEPT
 sudo iptables -P OUTPUT ACCEPT
@@ -164,3 +178,11 @@ sudo iptables -t mangle -F
 sudo iptables -F
 sudo iptables -X
 iptables-save > /etc/iptables/rules.v4
+echo "Ok that's it if you encounter any problems make sure to report them by creating a issue on github repository"
+echo "Original Project by superhori, modified by mihaidev-cloud :D"
+exit
+else
+echo "Ok that's it if you encounter any problems make sure to report them by creating a issue on github repository"
+echo "Original Project by superhori, modified by mihaidev-cloud :D"
+exit
+fi
