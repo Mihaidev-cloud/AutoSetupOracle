@@ -1,6 +1,6 @@
 # AutoSetupOracle
 ## Modified Version by mihaidev-cloud
-
+### Automate the procces of setup of a server
 
 ![bgbannerautosetuporacle](https://github.com/Mihaidev-cloud/AutoSetupOracle/assets/69433258/db196d6c-86e7-4fe8-8ab3-288542107d34)
 
